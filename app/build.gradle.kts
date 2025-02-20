@@ -48,5 +48,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.moshi.kotlin)
     implementation(libs.converter.moshi)
+    implementation ("com.squareup.picasso:picasso:2.8")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
 
 }

@@ -1,40 +1,47 @@
 package com.example.rickmortyapplication
 
 import android.os.Bundle
-import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.lifecycle.ViewModelProvider
+import com.squareup.picasso.Picasso
 
 class MainActivity : AppCompatActivity() {
+
+    val viewModel: SharedViewModel by lazy {
+        ViewModelProvider(this).get(SharedViewModel::class.java)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
-        val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("https://rickandmortyapi.com/api/")
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .build()
+        val nameTextView = findViewById<AppCompatTextView>(R.id.nameTextView)
+        val headerImageView = findViewById<AppCompatImageView>(R.id.headerImageView)
+        val aliveTextView = findViewById<AppCompatTextView>(R.id.aliveTextView)
+        val originTextView = findViewById<AppCompatTextView>(R.id.originTextView)
+        val speciesTextView = findViewById<AppCompatTextView>(R.id.speciesTextView)
 
-        val rickAndMortyService: RickAndMortyService = retrofit.create(RickAndMortyService::class.java)
-
-        rickAndMortyService.getCharacterById().enqueue(object: Callback<Any>{
-            override fun onResponse(call: Call<Any>, response: Response<Any>) {
-                Log.i("MainActivity", response.toString())
+        viewModel.refreshCharacter(10)
+        viewModel.characterByIdLiveData.observe(this){ response ->
+            if (response == null){
+                Toast.makeText(
+                    this@MainActivity,
+                    "Unsuccesful network call!!",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@observe
             }
 
-            override fun onFailure(call: Call<Any>, t: Throwable) {
-                Log.i("MainActivity", t.message ?: "Null message")
-            }
-
-        })
+            nameTextView.text = response.name
+            aliveTextView.text = response.status
+            originTextView.text = response.origin.name
+            speciesTextView.text=response.species
+            Picasso.get().load(response.image).into(headerImageView)
         }
     }
+}
