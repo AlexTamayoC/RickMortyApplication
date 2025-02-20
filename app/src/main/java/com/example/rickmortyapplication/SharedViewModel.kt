@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-class SharedViewModel(private val repository: SharedRepository) : ViewModel(){
+class SharedViewModel : ViewModel(){
+
+    private val repository = SharedRepository()
 
     private val _characterByIdLiveData = MutableLiveData<Character?>()
     val characterByIdLiveData: LiveData<Character?> = _characterByIdLiveData
