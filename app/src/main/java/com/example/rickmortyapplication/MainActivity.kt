@@ -1,20 +1,40 @@
 package com.example.rickmortyapplication
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
+        val retrofit: Retrofit = Retrofit.Builder()
+            .baseUrl("https://rickandmortyapi.com/api/")
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .build()
+
+        val rickAndMortyService: RickAndMortyService = retrofit.create(RickAndMortyService::class.java)
+
+        rickAndMortyService.getCharacterById().enqueue(object: Callback<Any>{
+            override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                Log.i("MainActivity", response.toString())
+            }
+
+            override fun onFailure(call: Call<Any>, t: Throwable) {
+                Log.i("MainActivity", t.message ?: "Null message")
+            }
+
+        })
         }
     }
-}
