@@ -1,5 +1,8 @@
 package com.example.rickmortyapplication
 
+import com.example.rickmortyapplication.epoxy.response.Character
+import com.example.rickmortyapplication.network.NetworkLayer
+
 class SharedRepository {
 
     suspend fun getCharacterById(characterId: Int): Character? {

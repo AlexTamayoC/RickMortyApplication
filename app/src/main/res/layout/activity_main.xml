@@ -6,88 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@id/headerImageView"
+    <com.airbnb.epoxy.EpoxyRecyclerView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintDimensionRatio="16:9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="25dp"
+        android:layout_height="match_parent"
+        android:id="@+id/epoxyRecyclerView"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/nameTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:textColor="?attr/colorOnBackground"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerImageView"
-        android:text="Morty Smith"
-        />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/aliveTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="?attr/colorOnBackground"
-        android:textSize="16sp"
-        android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/nameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextView"
-        android:text="Alive"
-        />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/originLabelTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Origin"
-        android:textColor="?attr/colorOnBackground"
-        android:textSize="24sp"
-        android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/aliveTextView"
-        app:layout_constraintTop_toBottomOf="@+id/aliveTextView"
-        />
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/originTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="?attr/colorOnBackground"
-        android:text="Earth"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/originLabelTextView"
-        app:layout_constraintTop_toBottomOf="@+id/originLabelTextView"
-        />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/speciesLabelTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Species"
-        android:textColor="?attr/colorOnBackground"
-        android:textSize="24sp"
-        android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/originTextView"
-        app:layout_constraintTop_toBottomOf="@+id/originTextView"
-        />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/speciesTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Human"
-        android:textColor="?attr/colorOnBackground"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/speciesLabelTextView"
-        app:layout_constraintTop_toBottomOf="@+id/speciesLabelTextView"
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

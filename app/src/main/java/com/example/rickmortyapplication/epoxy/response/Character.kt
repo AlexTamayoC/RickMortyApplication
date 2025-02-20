@@ -1,4 +1,4 @@
-package com.example.rickmortyapplication
+package com.example.rickmortyapplication.epoxy.response
 
 data class Character(
     val created: String ="",

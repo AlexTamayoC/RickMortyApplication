@@ -1,6 +1,6 @@
-package com.example.rickmortyapplication
+package com.example.rickmortyapplication.network
 
-import retrofit2.Call
+import com.example.rickmortyapplication.epoxy.response.Character
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

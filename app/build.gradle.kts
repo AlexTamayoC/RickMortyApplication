@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
 }
 
 android {
@@ -33,6 +34,10 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        viewBinding = true
+    }
+
 }
 
 dependencies {
@@ -50,5 +55,11 @@ dependencies {
     implementation(libs.converter.moshi)
     implementation ("com.squareup.picasso:picasso:2.8")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+    implementation("com.airbnb.android:epoxy:5.1.1") // Or latest version
+    kapt("com.airbnb.android:epoxy-processor:5.1.1")
 
+}
+
+kapt{
+    correctErrorTypes = true
 }
