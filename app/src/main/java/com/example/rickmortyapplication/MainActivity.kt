@@ -2,11 +2,13 @@ package com.example.rickmortyapplication
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.example.rickmortyapplication.epoxy.CharacterDetailsEpoxyController
@@ -25,7 +27,11 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        viewModel.characterByIdLiveData.observe(this){ response ->
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+            viewModel.characterByIdLiveData.observe(this){ response ->
 
             epoxyController.characterResponse = response
             if (response == null){
@@ -45,4 +51,13 @@ class MainActivity : AppCompatActivity() {
         epoxyRecyclerView.setControllerAndBuildModels(epoxyController)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId){
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 }
