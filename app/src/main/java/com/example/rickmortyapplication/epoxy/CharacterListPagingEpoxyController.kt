@@ -4,8 +4,10 @@ import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.paging.PagedListEpoxyController
 import com.example.rickmortyapplication.R
 import com.example.rickmortyapplication.databinding.ModelCharacterListItemBinding
+import com.example.rickmortyapplication.databinding.ModelCharacterListTitleBinding
 import com.example.rickmortyapplication.epoxy.response.Character
 import com.squareup.picasso.Picasso
+import java.util.Locale
 
 class CharacterListPagingEpoxyController : PagedListEpoxyController<Character>(){
 
@@ -16,6 +18,32 @@ class CharacterListPagingEpoxyController : PagedListEpoxyController<Character>()
         return CharacterGridItemEpoxyModel(item!!.image, item.name).id(item.id)
     }
 
+    override fun addModels(models: List<EpoxyModel<*>>) {
+
+        if(models.isEmpty()){
+            LoadingEpoxyModel().id("loading").addTo(this)
+            return
+        }
+
+        CharacterGridTitleEpoxyModel("Main Family")
+            .id("main_family_header")
+            .addTo(this)
+
+        super.addModels(models.subList(0,5))
+
+        (models.subList(5, models.size) as List<CharacterGridItemEpoxyModel>).groupBy {
+            it.name[0].toUpperCase()
+        }.forEach{ mapEntry ->
+            val character = mapEntry.key.toString().toUpperCase(Locale.US)
+            CharacterGridTitleEpoxyModel(title = character)
+                .id(character)
+                .addTo(this)
+
+            super.addModels(mapEntry.value)
+
+        }
+    }
+
     data class CharacterGridItemEpoxyModel(
         val imageUrl: String,
         val name: String
@@ -24,6 +52,18 @@ class CharacterListPagingEpoxyController : PagedListEpoxyController<Character>()
             Picasso.get().load(imageUrl).into(characterImageView)
             characterNameTextView.text = name
         }
+    }
 
+    data class CharacterGridTitleEpoxyModel(
+        val title: String
+    ): ViewBindingKotlinModel<ModelCharacterListTitleBinding>(R.layout.model_character_list_title){
+
+        override fun ModelCharacterListTitleBinding.bind() {
+            textView.text = title
+        }
+
+        override fun getSpanSize(totalSpanCount: Int, position: Int, itemCount: Int): Int {
+            return totalSpanCount
+        }
     }
 }
