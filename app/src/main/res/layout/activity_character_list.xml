@@ -13,6 +13,7 @@
         app:spanCount="2"
         app:itemSpacing="8dp"
         tools:itemCount="12"
+        android:layout_marginTop="75dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
