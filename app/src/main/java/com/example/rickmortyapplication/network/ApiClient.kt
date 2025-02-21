@@ -1,6 +1,7 @@
 package com.example.rickmortyapplication.network
 
 import com.example.rickmortyapplication.epoxy.response.Character
+import com.example.rickmortyapplication.epoxy.response.GetCharactersPageResponse
 import retrofit2.Response
 
 class ApiClient (
@@ -9,6 +10,10 @@ class ApiClient (
 
     suspend fun getCharacterById(characterId: Int): SimpleResponse<Character> {
         return safeApiCall { rickAndMortyService.getCharacterById(characterId) }
+    }
+
+    suspend fun getCharactersPage(pageIndex: Int): SimpleResponse<GetCharactersPageResponse>{
+        return safeApiCall { rickAndMortyService.getCharactersPage(pageIndex) }
     }
 
     private inline fun <T> safeApiCall(apiCall: () -> Response<T>): SimpleResponse<T> {

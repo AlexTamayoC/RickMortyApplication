@@ -1,6 +1,7 @@
 [versions]
 agp = "8.8.0"
 converterMoshi = "2.9.0"
+epoxyPaging = " 5.1.1"
 kotlin = "1.9.24"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -11,12 +12,15 @@ material = "1.12.0"
 activity = "1.10.0"
 constraintlayout = "2.2.0"
 moshiKotlin = "1.15.2"
+pagingRuntimeKtx = "3.3.6"
 picasso2 = "2.8"
 retrofit = "2.11.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "pagingRuntimeKtx" }
 converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "converterMoshi" }
+epoxy-paging = { module = "com.airbnb.android:epoxy-paging", version.ref = "epoxyPaging" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

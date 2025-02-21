@@ -57,6 +57,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
     implementation("com.airbnb.android:epoxy:5.1.1") // Or latest version
     kapt("com.airbnb.android:epoxy-processor:5.1.1")
+    implementation(libs.androidx.paging.runtime.ktx){
+        exclude("com.android.support")
+    }
+    implementation("com.airbnb.android:epoxy-paging:2.18.0")
 
 }
 
