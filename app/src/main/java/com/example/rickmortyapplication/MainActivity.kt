@@ -37,7 +37,9 @@ class MainActivity : AppCompatActivity() {
                 return@observe
             }
         }
-        viewModel.refreshCharacter(54)
+
+        val id = intent.getIntExtra(Constants.INTENT_EXTRA_CHARACTER_ID, 1)
+        viewModel.refreshCharacter(characterId = id)
 
         val epoxyRecyclerView = findViewById<EpoxyRecyclerView>(R.id.epoxyRecyclerView)
         epoxyRecyclerView.setControllerAndBuildModels(epoxyController)
